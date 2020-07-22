@@ -1,13 +1,30 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
+import {navigate} from '@reach/router';
 
 export default props =>{
 
+    const [products, setProducts] = useState([{}]);
+    useEffect(()=>{
+        axios.get('http://localhost:8000/api/products')
+            .then(res=>{
+                setProducts(res.data);
+            })
+    }, [])
+    const rmFromDom = prodID => {
+        setProducts(products.filter(prod => prod._id !== prodID))
+    }
+    const deleteProd = (prodID) =>{
+        axios.delete(`http://localhost:8000/api/products/${prodID}`)
+            .then(res=>{
+                rmFromDom(prodID)
+            })
+        navigate('/')
+    }
+
     const {id} = props
     const [state, setState] = useState({
-        title: "",
-        price: "",
-        desc: "" 
+        title: "", price: "", desc: "" 
     })
 
     const {title, price, desc} = state
@@ -44,6 +61,7 @@ export default props =>{
     return(
         <div>
             <h1>Update Product</h1>
+            <button onClick={(e) => {deleteProd(id)}}>Delete</button>
             <form onSubmit={handleSubmit}>
             <p>
                 <label> Title: </label><br/>

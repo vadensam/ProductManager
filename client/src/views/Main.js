@@ -11,7 +11,7 @@ export default () => {
             .then(res=>{
                 setProducts(res.data);
             })
-    }, [])
+    }, )
     const rmFromDom = prodID => {
         setProducts(products.filter(prod => prod._id !== prodID))
     }
