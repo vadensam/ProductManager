@@ -18,3 +18,15 @@ module.exports.findOne = (req, res) =>{
         .then(prod => res.json(prod))
         .catch(err => res.json(err))
 }
+
+module.exports.editOne = (req, res) => {
+    Prod.findOneAndUpdate({ _id: req.params.id}, req.body, {new: true})
+        .then(data => res.json(data))
+        .catch(err=>res.json(err))
+}
+
+module.exports.deleteOne = (req, res) => {
+    Prod.deleteOne({ _id: req.params.id})
+        .then(data => res.json(data))
+        .catch(err => res.json(err))
+}

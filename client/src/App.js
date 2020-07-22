@@ -3,6 +3,7 @@ import './App.css';
 import Main from './views/Main';
 import Detail from './views/Detail';
 import {Router, Link} from '@reach/router'
+import Update from './views/Update';
 function App() {
   return (
     <div className="App">
@@ -10,6 +11,7 @@ function App() {
       <Router>
         <Main path="/"/>
         <Detail path="products/:id"/>
+        <Update path="products/:id/edit"/>
       </Router>
     </div>
   );

@@ -1,9 +1,19 @@
 import React from 'react';
-import {navigate} from '@reach/router'
+import {navigate} from '@reach/router';
+import axios from 'axios';
 
 export default props => {
 
-    const {info} = props;
+    const {info, rmFromDom} = props
+    
+    
+
+    const deleteProd = (prodID) =>{
+        axios.delete(`http://localhost:8000/api/products/${prodID}`)
+            .then(res=>{
+                rmFromDom(prodID)
+            })
+    }
    
     return(
         <div>
@@ -12,7 +22,10 @@ export default props => {
                 
                     {
                         info.map((item, i) =>
-                        <p key={i} onClick={(e)=> {navigate(`products/${item._id}`)}}> {item.title}</p>
+                            <div key={i}>
+                                <p  onClick={(e)=> {navigate(`products/${item._id}`)}}> {item.title}</p> 
+                                <button onClick={(e) =>{deleteProd(item._id)}} >Delete</button>
+                            </div>
                         )
                     }
                 

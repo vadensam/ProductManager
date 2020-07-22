@@ -12,12 +12,15 @@ export default () => {
                 setProducts(res.data);
             })
     }, [])
+    const rmFromDom = prodID => {
+        setProducts(products.filter(prod => prod._id !== prodID))
+    }
     
 
     return (
         <div>
             <ProdForm/>
-            <ProdList info={products}/>
+            <ProdList info={products} rmFromDom={rmFromDom}/>
         </div>
 
     )
