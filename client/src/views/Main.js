@@ -9,7 +9,7 @@ export default () => {
     useEffect(()=>{
         axios.get('http://localhost:8000/api/products')
             .then(res=>{
-                setProducts(res.data);
+                setProducts(res.data.result);
             })
     }, )
     const rmFromDom = prodID => {
@@ -19,7 +19,7 @@ export default () => {
 
     return (
         <div>
-            <ProdForm/>
+            <ProdForm action="create"/>
             <ProdList info={products} rmFromDom={rmFromDom}/>
         </div>
 
